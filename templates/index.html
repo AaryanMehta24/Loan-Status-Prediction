@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Prediction System</title>
+</head>
+<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+    
+header::before{
+    content: "";
+    background: url({{ url_for('static',filename="img/loan_3.jpg") }}) no-repeat center center/cover;
+    /* background-image: url({{url_for('static',filename='/img/loan_3.jpg')}}) no-repeat center center/cover; */
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height: 100%;
+    z-index: -1;
+    /* opacity: 0.2; */
+    
+    }
+#Gender{   
+    padding: 5px 52px;   
+}
+#Marital{   
+    padding: 5px 26px;   
+}
+#Dependents{   
+    padding: 5px 34px;   
+}
+#Education{   
+    padding: 5px 45px;   
+}
+#Employed{   
+    padding: 5px 35px;   
+}
+#Property{
+    padding: 5px 26px;
+}
+</style>
+<!-- <style> -->
+    <!-- /* CSS RESET */
+    body {
+        font-family: 'Baloo Bhai 2', cursive;
+        color: white;
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    header::before{
+        content: "";
+        background: url('img/barbell-1839087_1920.jpg') no-repeat center center/cover;
+        position: absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height: 100%;
+        z-index: -1;
+        /* opacity: 0.2; */
+        
+    }
+
+
+
+    .left {
+        display: inline-block;
+        position: absolute;
+        top: 18px;
+        left: 65px;
+        /* border: 2px solid red; */
+    }
+
+    .left img {
+        width: 80px;
+        filter: invert(100%);
+        transition: all 10s ease-in .2;
+
+    }
+
+    .left img:hover {
+        /* width:105px; */
+        transform: scale(1.2);
+
+
+    }
+
+    .left {
+        font-family: 'Baloo Bhai 2', cursive;
+        text-align: center;
+        line-height: 0px;
+    }
+
+    .mid {
+        display: block;
+        width: 50%;
+        margin: 18px auto;
+        /* border: 2px solid green; */
+    }
+
+    .right {
+        display: inline-block;
+        position: absolute;
+        top: 18px;
+        right: 34px;
+        /* border: 2px solid yellow; */
+
+    }
+
+    .navbar {
+        display: inline-block;
+    }
+
+    .navbar li {
+        display: inline-block;
+        font-size: 23px;
+    }
+
+    .navbar li a {
+        text-decoration: none;
+        color: white;
+        padding: 34px 23px;
+       
+    }   
+    .navbar li a:hover,
+    .navbar li a:active {
+        color: grey;
+        /* text-decoration: underline; */
+        
+    }
+
+    #search {
+        font-family: 'Baloo Bhai 2', cursive;
+        font-size: 15px;
+        margin: 16px 12px;
+        padding: 2px 0px;
+        border: 2px solid grey;
+        border-radius: 10px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    #search:hover {
+        background-color: rgb(241, 228, 228);
+    }
+
+    .container {
+        border: 2px solid white;
+        padding: 2px 2px;
+        display: block;
+        margin: 101px 700px;
+        border-radius: 15px;
+        width: 40%;
+
+        transition: all 2s ease-in .3s;
+
+
+    }
+
+    .container:hover {
+        /* background-color: rgb(31, 32, 34); */
+        border-radius: 40px;
+        width: 45%;
+        transform: scale(1.1);
+    }
+
+    .container h1 {
+        font-family: 'Baloo Bhai 2', cursive;
+        text-align: center;
+        /* color:rgb(19, 3, 88); */
+    }
+
+    .form-group input {
+        font-family: 'Baloo Bhai 2', cursive;
+        display: block;
+        border: 2px solid white;
+        padding: 5px 20px;
+        margin: 5px auto;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .form-group input:hover {
+        background-color: rgb(241, 228, 228);
+    }
+
+
+
+
+
+    .btn {
+        display: block;
+        font-family: 'Baloo Bhai 2', cursive;
+        padding: 5px 32px;
+        margin: 5px auto;
+        border-radius: 10px;
+        text-align: center;
+        background-color: black;
+        color: white;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .btn:hover {
+        background-color: grey;
+    } -->
+<!-- </style> -->
+
+<body> 
+    <header class="header">
+        <!-- left box for logo -->
+        <div class="left">
+            <img src="{{ url_for('static',filename='img/logo.png') }}" alt="">
+            <div>
+                <h4>Loan Status Prediction</h4>
+            </div>
+        </div>
+        <!-- Mid box for navbar -->
+        <div class="mid">
+            <ul class="navbar">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#"> Approval Criteria</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+        <!-- Right box for buttons/search bar -->
+        <div class="right">
+            <input type="text" name="search" id="search" placeholder="Search here">
+        </div>
+    </header>
+    <div class="container">
+        <h1>Get the Status of your Loan</h1>
+        <h2>{{prediction_text}}</h2>
+        <h3>{{age_text}}</h3>
+        <form action="/predict" method="POST">
+            <!-- <div class="form-group">
+                <input type="text" placeholder="Enter your Gender">
+            </div> -->
+            <!-- <div class="form-group">
+                <input type="date" id="Date" name="Enter Your Date Of Birth" placeholder="Enter Your Date Of Birth">
+            </div> -->
+            <div class="form-group">
+                <input type="number" placeholder="Enter your age" id="Age" name="Enter Your Date Of Birth" >
+            </div>
+
+            <div class="form-group">
+                <select name = "Gender" id="Gender">
+                    <option value="" disabled selected hidden>Enter Your Gender</option>
+                    <option value = 1 >Male</option>
+                    <option value = 0>Female</option>
+                </select>
+            </div>
+            <!-- <div class="form-group">
+                <input type="text" placeholder="Enter your Marital Status">
+            </div> -->
+            <div class="form-group">
+                <select name = "Marital" id = "Marital">
+                    <option value="" disabled selected hidden>Enter Your Marital Status</option>
+                    <option value = 1 >Married</option>
+                    <option value = 0>Unmarried</option>
+                </select>
+            <!-- </div>
+            <div class="form-group">
+                <input type="text" placeholder="Enter no. of Dependents">
+            </div> -->
+            <div class="form-group">
+                <select name = "Dependents" id="Dependents">
+                    <option value="" disabled selected hidden>Enter no. of Dependents</option>
+                    <option value = 0 >0</option>
+                    <option value = 1>1</option>
+                    <option value = 2>2</option>
+                    <option value = 4>3 and above</option>
+                </select>
+            </div>
+            <!-- <div class="form-group">
+                <input type="text" placeholder="Enter your Education">
+            </div> -->
+            <div class="form-group">
+                <select name = "Education" id ="Education">
+                    <option value="" disabled selected hidden>Enter Your Education</option>
+                    <option value = 1 >Graduate</option>
+                    <option value = 0>Not Graduate</option>
+                </select>
+            </div>
+            <!-- <div class="form-group">
+                <input type="text" placeholder="Are you Self Employed?">
+            </div> -->
+            <div class="form-group">
+                <select name = "Employed" id="Employed">
+                    <option value="" disabled selected hidden>Are you Self Employed?</option>
+                    <option value = 1 >Yes</option>
+                    <option value = 0>No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Enter your Income" name="Income">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Enter your CoapplicantIncome" name="CoappIncome">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Enter Loan Amount" name="loanAmt">
+            </div>
+            <div class="form-group">
+                <!-- <input type="text" placeholder="Enter Loan Amount Term" name="Term"> -->
+               
+                <select name = "Term" id="Term">
+                    <option value="" disabled selected hidden>Enter  Loan  Amount Term </option>
+                    <option value = 180 >Half year</option>
+                    <option value = 360>One year</option>
+                    <option value = 480>Two years</option>
+                    
+                </select>
+            </div>
+            <div class="form-group">
+                <!-- <input type="text" placeholder="Enter your Credit History" name="History"> -->
+                <select name = "History" id="">
+                    <option value="" disabled selected hidden>Enter Your Credit History</option>
+                    <option value = 1>All previous debts cleared</option>
+                    <option value = 0>Previous debts pending </option>
+                </select>
+            </div>
+            <!-- <div class="form-group">
+                <input type="text" placeholder="Enter your Property Area">
+            </div> -->
+            <div class="form-group">
+                <select name = "Property" id="Property">
+                    <option value="" disabled selected hidden>Enter Your Property Area</option>
+                    <option value = 2 >Urban</option>
+                    <option value = 1>Semi-Urban</option>
+                    <option value = 0>Rural</option>
+                </select>
+            </div>
+            <input type="submit" class="btn" value="Get Status" ></button>
+        
+        </form>
+        <br>
+        <br>
+        
+    </div>
+
+</body>
+
+</html>
